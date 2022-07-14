@@ -23,7 +23,7 @@
                             <span class="line line3"></span>
                         </div>
                         <div class="logo">
-                            <h1>OHD</h1>
+                            <a href="./"><h1>OHD</h1></a>
                         </div>
                         <div class="menu-items">
                             <li><a href="#">Accueil</a></li>

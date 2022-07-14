@@ -37,18 +37,10 @@ $sth = $dbh->query($sql);
 
 function checkForPresence($row, $isColorFunction){ // Function that checks if the user is present or not for the event
     if($isColorFunction == true){ // If the function is called to check the color of the event
-        if ($row["User"] != NULL){  
-            return 'green'; 
-        } else{            
-            return 'red'; 
-        }  
+        return ($row["User"] != NULL) ? "#99FF99" : "#FF9999"; // If the user is present, return green, else return red
     }
     else{  
-        if ($row["User"] != NULL){ 
-            return 'Present'; 
-        } else{
-            return 'Absent';
-        } 
+        return ($row["User"] != NULL) ? "Présent" : "Absent"; // If the user is present, return "Présent", else return "Absent"
     }
 }
 
@@ -60,9 +52,6 @@ if($_SESSION['Type_User'] == 1){  // If the user is an admin ?>
     <a href="./newEvent.php"><button>Nouvel Evenement</button></a>
 
 <?php }
-
-
-    
 ?>
 
 
@@ -70,20 +59,20 @@ if($_SESSION['Type_User'] == 1){  // If the user is an admin ?>
     <tr class="tableHead">
         <th>Nom de l'Evenement</th>
         <th>Date de l'Evenement</th>
+        <th>Heure de l'Evenement</th>
         <th>Presence</th>
-        <th>Action</th>
     </tr>
     <?php foreach($sth as $row) { ?>
     <tr>
         <td><?= $row["EventName"]?></td>
-        <td><?= $row["EventDate"]?></td>
+        <td><?= substr($row["EventDate"],0,10)?></td>
+        <td><?= substr($row["EventDate"],11,5)?></td>
         <td id="td">
             <form action="./index.php">
                 <input type="hidden" name="ID_Event" value=<?= $row["ID_Event"]?>>
                 <input type="submit" value=<?= checkForPresence($row, false)?> class="buttonPresence" style="background-color:<?= checkForPresence($row, true)?>;">
             </form>
         </td>
-        <td><a href="">Supprimer</a></td>
     </tr>
     <?php } ?>
 </table>
